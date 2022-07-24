@@ -1,0 +1,73 @@
+Step 1:  Find a dataset or datasets
+
+
+
+
+Based on your interest, identify a dataset which you will want to examine.  There is a reading this week on where you can find open datasets, but feel free to use other datasets you have access to and care publicly share results about.  Or, feel free to create your own dataset by getting data from the web using tools you learned in Week 8.
+
+ 
+
+This step may take some time, as you’ll likely look at a number of datasets before you find one (or more) which holds promising data for the kinds of questions you want to ask.  Feel free to use a combination of datasets which you can merge in some meaningful way.
+Step 2:  Explore the dataset(s)
+
+In this step, you should explore what is present in the data and how the data is organized.  If using multiple datasets, you’ll need to determine what common features allow you to merge the datasets.  You’ll want to answer the following questions:
+
+            Are there quality issues in the dataset (noisy, missing data, etc.)?
+            What will you need to do to clean and/or transform the raw data for analysis?
+
+Step 3:  Identify 1-3 research questions
+
+Now that you have a better understanding of the data, you will want to form a research question which is interesting to you. The research question should be broad enough to be of interest to a reader but narrow enough that the question can be answered with the data.  Some examples:
+
+            Too Narrow:  What is the GDP of the U.S. for 2011?  This is just asking for a fact or a single data point.  
+            Too Broad:  What is the primary reason for global poverty?  This could be a Ph.D. thesis and would still be way too broad.  What data will you use to answer this question?  Even if a single dataset offered an answer, would it be defendable given the variety of datasets out there?
+            Good (just right):  Can you use sentiment analysis on comments about movies on Twitter to predict its box office earnings?  If you have, or can obtain, tweets which refer to a variety of movies and you have their box office earnings, this is a question which you can potentially answer well. 
+
+Step 4:  Describe your dataset(s) and your research question(s) at the end of Week 9 in the Project. 
+
+
+
+I am using the Common Vulnerability and Exposures (CVE) database published by MITRE.  The location of the data set is here: https://cve.mitre.org/data/downloads/
+
+Without reading the documentation, I do notice that the data consistency has shifted over the years.  Overall, the data is complete enough to create a way for asking and answering my questions.  One notable feature missing from the data is the severity rating or vulnerability score.  This data captures the risk and potential impact of a vulnerability, which incorporates several extraneous factors apart from the vulnerability itself.
+
+The data set include a description of the vulnerability.  This description generally covers the vender (e.g. Cisco, VMware, Linux, etc.) and what the problem is.  The National Vulnerability Database has a very good break down of the vulnerabilites and vendor (see: https://nvd.nist.gov/general/visualizations/cpe-products-distribution) , but it does not disclose the types of vulnerabilities, etc.  I would like dive deeper into the data and answer the following questions:
+
+1) Have shifts in vendor awareness improved their security of technology?
+2) Given a list of common vulnerability classes and types, have the reporting of these vulnerabilities decreased?
+3) Drilling down over the years, what have the number of vulnerabilities for a few major vendors done.  Have they increased, decreased, or remained the same?
+
+
+
+import pandas as pd
+dataset = 'cve_allitems.csv'
+
+# only want to keep the name and the description
+all_cves_df = pd.read_csv(dataset)[['Name','Description']]
+
+
+opensource_vendors = ['redhat', apache', 'mozilla', 'kde', 'gnome', 'openstack', 'eclipse', 'php', 'python', 'linux', 'freebsd', 'mint', 'ubuntu', 'debian', 'ruby']
+closedsource_vendors = ['cisco', 'ibm', 'google', 'intel', 'orcale', 'microsoft', 'huawei', 'adobe', 'f5', 'vmware', 'lenovo', 'amazon', 'amazon', 'netgear', 'symantec', 'juniper', 'hp', 'mcafee']
+
+opensource_operating_systems = ['freebsd', 'linux', 'AIX', 'IRIX']
+linux_distributions = ['ubuntu', 'mint', 'debian', redhat]
+# what is infrastructure routers, switches, firewalls, device?
+infrastructure_companies = ['cisco', 'netgear', 'huawei', 'f5']
+
+
+common_vulnerabilities = ['hardcoded secrets', 'remote code execution', 'SQL Injection', 'Insecure Deserialization', 'Misconfiguration', 'command injection', 'code injection', 'memory corruption']
+
+
+memory_corruption_keywords = ['use-after-free', 'corruption', 'heap', 'buffer', 'overflow', 'overwrite', 'bypass', 'pinter', 'dereference', 'null']
+hardcoded_secrets_keywords = ['hardcoded', 'private', 'keys', 'secret', 'symmetric', ]
+command_injection = ['command', 'injection', 'unsanitized', 'input', 'perl', 'python', 'ruby', 'arbitrary']
+sql_injection = ['sql', 'injection', 'sqli', 'unsanitized' 'input', ]
+remote_code_execution = ['remote', 'code', 'execution', 'memory' 'corruption', 'heap', 'buffer']
+privilege_escalation = ['privilege', 'escalation', 'root', 'Administrator' ]
+insecure_deserialization = ['deserialization']
+
+
+
+
+
+
